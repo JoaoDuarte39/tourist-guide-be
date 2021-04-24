@@ -11,7 +11,7 @@ const bindUserToViewLocals = require('./middleware/bind-user-to-view-locals.js')
 const passportConfigure = require('./passport-configuration.js');
 const baseRouter = require('./routes/index');
 const authenticationRouter = require('./routes/authentication');
-
+const cors = require('cors');
 const app = express();
 
 app.use(serveFavicon(path.join(__dirname, 'public/images', 'favicon.ico')));
@@ -38,6 +38,8 @@ app.use(bindUserToViewLocals);
 
 app.use('/', baseRouter);
 app.use('/authentication', authenticationRouter);
+app.use('/api', require('./routes/event'));
+app.use('/api', require('./routes/museum'));
 
 // Catch missing routes and forward to error handler
 app.use((req, res, next) => {
@@ -49,5 +51,14 @@ app.use((error, req, res, next) => {
   res.status(error.status || 500);
   res.json({ type: 'error', error: { message: error.message } });
 });
+
+
+
+app.use(
+  cors({
+    credentials: true,
+    origin: ['http://localhost:3000'] // <== this will be the URL of our React app (it will be running on port 3000)
+  })
+);
 
 module.exports = app;
