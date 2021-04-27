@@ -38,7 +38,7 @@ app.use(bindUserToViewLocals);
 
 app.use('/', baseRouter);
 app.use('/authentication', authenticationRouter);
-app.use('/api', require('./routes/event'));
+app.use('/api', require('./routes/business'));
 app.use('/api', require('./routes/museum'));
 
 // Catch missing routes and forward to error handler

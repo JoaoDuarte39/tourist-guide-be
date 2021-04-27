@@ -1,12 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const Museum = require('../models/Museum');
-const Event = require('../models/Event');
+const Museum = require('../models/Monument');
+const Act = require('../models/Business');
  
 const router = express.Router();
  
 // GET route => to retrieve a specific task
-router.get('/events/:eventId/museum/:museumId', (req, res, next) => {
+router.get('/acts/:actId/museum/:museumId', (req, res, next) => {
   Museum.findById(req.params.taskId)
     .then(museum => {
       res.json(museum);
@@ -21,10 +21,10 @@ router.post('/museums', (req, res, next) => {
   Museum.create({
     title: req.body.title,
     description: req.body.description,
-    event: req.body.eventID
+    act: req.body.actID
   })
     .then(response => {
-      return Event.findByIdAndUpdate(req.body.eventID, {
+      return Act.findByIdAndUpdate(req.body.actID, {
         $push: { museums: response._id }
       });
     })

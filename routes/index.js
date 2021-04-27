@@ -7,7 +7,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/private', routeGuard, (req, res, next) => {
-  res.json({});
+  res.json({ data: req.user });
 });
 
 module.exports = router;
