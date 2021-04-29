@@ -18,7 +18,7 @@ const schema = new mongoose.Schema({
   createTour: {
     type: String
   },
-  
+
 });
 
 module.exports = mongoose.model('User', schema);

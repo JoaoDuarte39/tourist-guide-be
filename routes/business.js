@@ -40,7 +40,7 @@ router.get('/business/:id', (req, res, next) => {
   }
 
   Business.findById(req.params.id)
-    .populate('monuments', 'guides', 'owners', 'reviews')
+    .populate('monuments', 'owners')
     .then(business => {
       res.status(200).json({ data: business });
     })
@@ -56,9 +56,9 @@ router.put('/business/:id', (req, res, next) => {
     return;
   }
 
-  Business.findByIdAndUpdate(req.params.id, req.body)
-    .then(() => {
-      res.json({ message: `Business with ${req.params.id} is updated successfully.` });
+  Business.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then((updatedBusiness) => {
+      res.json({ data: updatedBusiness });
     })
     .catch(error => {
       res.json(error);

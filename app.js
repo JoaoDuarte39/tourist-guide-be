@@ -39,7 +39,10 @@ app.use(bindUserToViewLocals);
 app.use('/', baseRouter);
 app.use('/authentication', authenticationRouter);
 app.use('/api', require('./routes/business'));
-app.use('/api', require('./routes/museum'));
+app.use('/api', require('./routes/monument'));
+app.use('/api', require('./routes/course'));
+app.use('/api', require('./routes/guide'));
+//app.use('/api', require('./routes/review'));
 
 // Catch missing routes and forward to error handler
 app.use((req, res, next) => {
