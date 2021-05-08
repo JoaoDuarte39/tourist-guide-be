@@ -19,7 +19,7 @@ app.use(logger('dev'));
 app.use(
   cors({
     credentials: true,
-    origin: (process.env.ALLOWED_CORS_ORIGINS || '').split(",") // <== this will be the URL of our React app (it will be running on port 3000)
+    origin: [process.env.ALLOWED_CORS_ORIGINS] // <== this will be the URL of our React app (it will be running on port 3000)
   })
 );
 app.use(express.json());
