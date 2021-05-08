@@ -16,6 +16,12 @@ const app = express();
 
 app.use(serveFavicon(path.join(__dirname, 'public/images', 'favicon.ico')));
 app.use(logger('dev'));
+app.use(
+  cors({
+    credentials: true,
+    origin: ['http://localhost:3000'] // <== this will be the URL of our React app (it will be running on port 3000)
+  })
+);
 app.use(express.json());
 app.use(
   expressSession({
@@ -57,11 +63,5 @@ app.use((error, req, res, next) => {
 
 
 
-app.use(
-  cors({
-    credentials: true,
-    origin: ['http://localhost:3000'] // <== this will be the URL of our React app (it will be running on port 3000)
-  })
-);
 
 module.exports = app;

@@ -20,7 +20,7 @@ router.post(
   })
 );
 
-router.post('/sign-out', (req, res, next) => {
+router.post('/logout', (req, res, next) => {
   req.logout();
   res.json({});
 });

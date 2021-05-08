@@ -10,7 +10,6 @@ const monumentSchema = new Schema({
   image: {
     type: String,
     default: "https://eu.ui-avatars.com/api/?background=random",
-    required: [true, "image is required."],
   },
   description: String,
   location: String,
