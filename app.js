@@ -19,7 +19,7 @@ app.use(logger('dev'));
 app.use(
   cors({
     credentials: true,
-    origin: ['http://localhost:3000'] // <== this will be the URL of our React app (it will be running on port 3000)
+    origin: (process.env.ALLOWED_CORS_ORIGINS || '').split(",") // <== this will be the URL of our React app (it will be running on port 3000)
   })
 );
 app.use(express.json());
@@ -28,9 +28,12 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: false,
+    proxy: true,
     cookie: {
       maxAge: 15 * 24 * 60 * 60 * 1000,
-      httpOnly: true
+      httpOnly: true,
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : false,
+      secure: process.env.NODE_ENV === 'production'
     },
     store: new (connectMongo(expressSession))({
       mongooseConnection: mongoose.connection,
